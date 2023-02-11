@@ -16,12 +16,19 @@
           <th class="pb-4 pt-6 px-6">Action</th>
         </tr>
         <tr v-for="food in foods.data" :key="food.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
-          <td class="border-t items-center px-6 py-4">{{ food.name }}</td>
-          <td class="border-t items-center px-6 py-4">{{ food.category.name }}</td>
+          <td class="border-t items-center px-6 py-4">{{ food.data.name }}</td>
+          <td class="border-t items-center px-6 py-4">{{ food.data.category.name }}</td>
           <td class="border-t">
             <div class="flex gap-3">
-              <Link :href="`/dashboard/food/${food.uuid}/edit`" class="bg-yellow-300 hover:bg-yellow-500 rounded px-3 py-2">Edit</Link>
-              <button class="bg-red-600 rounded px-3 py-2 hover:bg-red-700 text-white" tabindex="-1" type="button" @click.prevent="destroy(`${food.uuid}`)">Delete</button>
+              <Link :href="`/dashboard/food/${food.data.uuid}/edit`" class="bg-yellow-600 hover:bg-yellow-700 rounded px-3 py-2 text-white">
+                <i class="fas fa-pen"></i>
+              </Link>
+              <Link :href="`/dashboard/food/${food.data.uuid}`" class="bg-green-600 hover:bg-green-700 rounded px-3 py-2 text-white">
+                <i class="fas fa-eye"></i>
+              </Link>
+              <button class="bg-red-600 rounded px-3 py-2 hover:bg-red-700 text-white" tabindex="-1" type="button" @click.prevent="destroy(`${food.data.uuid}`)">
+                <i class="fas fa-trash"></i>
+              </button>
             </div>
           </td>
         </tr>
@@ -55,7 +62,7 @@ export default {
   layout: Layout,
   props: {
     filters: Object,
-    foods: Array,
+    foods: Object,
   },
   data() {
     return {
@@ -83,7 +90,7 @@ export default {
     },
   },
   created() {
-    console.log(this.foods)
+    console.log(this.foods.data)
   },
 }
 </script>

@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('dashboard')->middleware('auth')->group(function(){
     Route::resource('category', CategoryController::class);
+    Route::get('category/detail/{slug}', [CategoryController::class, 'listFood']);
     Route::resource('food', FoodController::class);
 });
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\FoodManagement;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Food\FoodRequest;
 use App\Http\Requests\Food\StoreRequest;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\FoodResource;
 use App\Models\Category;
 use App\Models\Food;
 use Illuminate\Http\Request;
@@ -21,10 +23,8 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $foods = Food::with('category')
-                    ->filter(request()->only('search'))
-                    ->paginate(2)
-                    ->withQueryString();
+        $filters = Food::with('category')->filter(request()->only('search'))->paginate(2);
+        $foods = FoodResource::collection($filters)->withQueryString();
         return Inertia::render('Food/Index',[
             'filters' => request()->all('search'),
             'foods' => $foods
@@ -40,7 +40,7 @@ class FoodController extends Controller
     {
         $categories = Category::all();
         return Inertia::render('Food/Create', [
-            'categories' => $categories
+            'categories' => CategoryResource::collection($categories)
         ]);
     }
 
@@ -70,7 +70,9 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
-        //
+        return Inertia::render('Food/Show', [
+            'food' => FoodResource::make($food)
+        ]);
     }
 
     /**
@@ -82,8 +84,8 @@ class FoodController extends Controller
     public function edit(Food $food)
     {
         return Inertia::render('Food/Edit', [
-            'food' => $food,
-            'categories' => Category::all()
+            'food' => FoodResource::make($food),
+            'categories' => CategoryResource::collection(Category::all())
         ]);
     }
 

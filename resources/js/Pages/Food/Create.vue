@@ -12,7 +12,7 @@
         </div>
         <div class="flex flex-wrap -mb-2 -mr-6 p-6">
           <SelectInput v-model="form.category_id" :error="form.errors.category_id" class="pb-2 pr-6 w-full lg:w-1/2" label="Category">
-            <option v-for="category in categories" :value="category.id" :key="category.id">
+            <option v-for="category in categories.data" :value="category.id" :key="category.id">
               {{ category.name }}
             </option>
           </SelectInput>

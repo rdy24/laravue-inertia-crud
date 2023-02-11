@@ -39,13 +39,13 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
-        name: this.category.name,
+        name: this.category.data.name,
       }),
     }
   },
   methods: {
     update() {
-      this.form.put(`/dashboard/category/${this.category.uuid}`)
+      this.form.put(`/dashboard/category/${this.category.data.uuid}`)
     },
   },
 }

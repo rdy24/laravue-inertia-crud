@@ -12,7 +12,7 @@
         </div>
         <div class="flex flex-wrap -mb-2 -mr-6 p-6">
           <SelectInput v-model="form.category_id" :error="form.errors.category_id" class="pb-2 pr-6 w-full lg:w-1/2" label="Category">
-            <option v-for="category in categories" :value="category.id" :key="category.id">
+            <option v-for="category in categories.data" :value="category.id" :key="category.id">
               {{ category.name }}
             </option>
           </SelectInput>
@@ -54,15 +54,15 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
-        name: this.food.name,
-        category_id: this.food.category_id,
-        description: this.food.description,
+        name: this.food.data.name,
+        category_id: this.food.data.category.id,
+        description: this.food.data.description,
       }),
     }
   },
   methods: {
     update() {
-      this.form.put(`/dashboard/food/${this.food.uuid}`)
+      this.form.put(`/dashboard/food/${this.food.data.uuid}`)
     },
   },
 }

@@ -1,9 +1,9 @@
 <template>
   <div>
     <Head title="Dashboard" />
-    <h1 class="mb-8 text-3xl font-bold">Contacts</h1>
+    <h1 class="mb-8 text-3xl font-bold">Categories</h1>
     <div class="flex items-center justify-between mb-6">
-      <search-filter v-model="form.search" class="mr-4 w-full max-w-md" @reset="reset"> </search-filter>
+      <search-filter v-model="form.search" class="mr-4 w-full max-w-md" @reset="reset"></search-filter>
       <Link class="btn-indigo" href="/dashboard/category/create">
         <span>Create Category</span>
       </Link>
@@ -15,11 +15,18 @@
           <th class="pb-4 pt-6 px-6">Action</th>
         </tr>
         <tr v-for="category in categories.data" :key="category.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
-          <td class="border-t items-center px-6 py-4">{{ category.name }}</td>
+          <td class="border-t items-center px-6 py-4">{{ category.data.name }}</td>
           <td class="border-t">
             <div class="flex gap-3">
-              <Link :href="`/dashboard/category/${category.uuid}/edit`" class="bg-yellow-300 hover:bg-yellow-500 rounded px-3 py-2">Edit</Link>
-              <button class="bg-red-600 rounded px-3 py-2 hover:bg-red-700 text-white" tabindex="-1" type="button" @click.prevent="destroy(`${category.uuid}`)">Delete</button>
+              <Link :href="`/dashboard/category/${category.data.uuid}/edit`" class="bg-yellow-600 hover:bg-yellow-700 rounded px-3 py-2 text-white">
+                <i class="fas fa-pen"></i>
+              </Link>
+              <Link :href="`/dashboard/category/detail/${category.data.slug}`" class="bg-green-600 hover:bg-green-700 rounded px-3 py-2 text-white">
+                <i class="fas fa-eye"></i>
+              </Link>
+              <button class="bg-red-600 rounded px-3 py-2 hover:bg-red-700 text-white" tabindex="-1" type="button" @click.prevent="destroy(`${category.data.uuid}`)">
+                <i class="fas fa-trash"></i>
+              </button>
             </div>
           </td>
         </tr>
@@ -81,7 +88,7 @@ export default {
     },
   },
   created() {
-    console.log(this.categories.links)
+    console.log(this.categories)
   },
 }
 </script>

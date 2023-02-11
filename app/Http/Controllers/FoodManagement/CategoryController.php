@@ -5,6 +5,8 @@ namespace App\Http\Controllers\FoodManagement;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\FoodResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -20,9 +22,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::filter(request()->only('search'))
-                        ->paginate(2)
-                        ->withQueryString();
+        $filters = Category::filter(request()->only('search'))->paginate(2);
+        $categories = CategoryResource::collection($filters)->withQueryString();
         return Inertia::render('Category/Index',[
             'filters' => request()->all('search'),
             'categories' => $categories
@@ -76,7 +77,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         return Inertia::render('Category/Edit',[
-            'category' => $category
+            'category' => CategoryResource::make($category)
         ]);
     }
 
@@ -111,5 +112,15 @@ class CategoryController extends Controller
         $category->delete();
         Alert::success('Success', 'Category deleted successfully');
         return redirect()->route('category.index');
+    }
+
+    public function listFood($slug)
+    {
+        $category = Category::where('slug', $slug)->first();
+        $foods = $category->foods()->paginate(5);
+        return Inertia::render('Category/ListFood',[
+            'foods' => FoodResource::collection($foods),
+        ]);
+        
     }
 }

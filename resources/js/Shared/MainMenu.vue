@@ -2,20 +2,17 @@
   <div>
     <div class="mb-4">
       <Link class="group flex items-center py-3" href="/dashboard">
-        <icon name="dashboard" class="mr-2 w-4 h-4" :class="isUrl('dashboard') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('dashboard') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Dashboard</div>
+        <div :class="isUrl('dashboard') ? 'text-white' : 'text-indigo-300 group-hover:text-white'"><i class="fas fa-clock mr-1"></i> Dashboard</div>
       </Link>
     </div>
     <div class="mb-4">
       <Link class="group flex items-center py-3" href="/dashboard/category">
-        <icon name="office" class="mr-2 w-4 h-4" :class="isUrl('category') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('category') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Categories</div>
+        <div :class="isUrl('category') ? 'text-white' : 'text-indigo-300 group-hover:text-white'"><i class="fas fa-file-alt mr-1"></i> Categories</div>
       </Link>
     </div>
     <div class="mb-4">
       <Link class="group flex items-center py-3" href="/dashboard/food">
-        <icon name="users" class="mr-2 w-4 h-4" :class="isUrl('contacts') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('contacts') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Contacts</div>
+        <div :class="isUrl('contacts') ? 'text-white' : 'text-indigo-300 group-hover:text-white'"><i class="fas fa-chart-bar mr-1"></i> Foods</div>
       </Link>
     </div>
   </div>
