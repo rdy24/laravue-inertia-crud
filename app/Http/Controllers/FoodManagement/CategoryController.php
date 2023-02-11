@@ -20,8 +20,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::
-                        filter(request()->only('search'))
+        $categories = Category::filter(request()->only('search'))
                         ->paginate(2)
                         ->withQueryString();
         return Inertia::render('Category/Index',[

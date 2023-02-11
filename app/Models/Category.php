@@ -10,6 +10,10 @@ class Category extends Model
     use HasFactory;
     protected $fillable = ['name', 'uuid', 'slug'];
 
+    public function foods() {
+        return $this->hasMany(Food::class);
+    }
+
     public function getRouteKeyName()
     {
         return 'uuid';
