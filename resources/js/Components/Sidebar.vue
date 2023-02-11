@@ -11,12 +11,18 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="/dashboard" class="nav-link">
+            <Link href="/dashboard" class="nav-link active">
               <i class="nav-icon fas fa-home"></i>
               <p>Beranda</p>
-            </a>
+            </Link>
           </li>
           <li class="nav-header">Master</li>
+          <li class="nav-item">
+            <Link href="/dashboard/category" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>Category</p>
+            </Link>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -26,7 +32,11 @@
 </template>
 
 <script>
+import { Link } from '@inertiajs/vue3'
 export default {
   name: 'Sidebar',
+  components: {
+    Link,
+  },
 }
 </script>

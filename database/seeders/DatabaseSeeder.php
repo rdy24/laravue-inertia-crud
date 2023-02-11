@@ -23,6 +23,10 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        $this->call([
+            CategorySeeder::class,
+        ]);
+
         User::create([
             'name' => 'Test User',
             'email' => 'tes@example.com',
