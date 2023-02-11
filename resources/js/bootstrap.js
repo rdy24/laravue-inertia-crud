@@ -1,10 +1,5 @@
 import _ from 'lodash'
-try {
-  window.Popper = import('popper.js').default
-  window.$ = window.jQuery = import('jquery')
-
-  import('bootstrap')
-} catch (e) {}
+window._ = _
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

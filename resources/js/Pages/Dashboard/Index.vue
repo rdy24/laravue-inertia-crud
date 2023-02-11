@@ -1,62 +1,14 @@
 <template>
-  <Layout>
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
-          </div>
-          <!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>transaction</h3>
-
-                <p>Transaksi</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="/transaction" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-        </div>
-      </div>
-      <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </Layout>
+  <div>
+    <h1 class="mb-8 text-3xl font-bold">Dashboard</h1>
+    <p class="mb-8 leading-normal">Hey there! Welcome to Ping CRM, a demo app designed to help illustrate how <a class="text-indigo-500 hover:text-orange-600 underline" href="https://inertiajs.com">Inertia.js</a> works.</p>
+  </div>
 </template>
 
 <script>
-import Layout from '../../Shared/Layout.vue'
+import Layout from '@/Shared/Layout.vue'
 
 export default {
-  name: 'DashboardIndex',
-  components: {
-    Layout,
-  },
+  layout: Layout,
 }
 </script>
