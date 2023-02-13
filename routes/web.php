@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodManagement\CategoryController;
 use App\Http\Controllers\FoodManagement\FoodController;
 use App\Http\Controllers\ProfileController;
@@ -27,9 +28,6 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard/Index');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -38,6 +36,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('dashboard')->middleware('auth')->group(function(){
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('category', CategoryController::class);
     Route::get('category/detail/{slug}', [CategoryController::class, 'listFood']);
     Route::resource('food', FoodController::class);

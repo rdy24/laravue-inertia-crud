@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Head title="Dashboard" />
+    <Head title="Foods" />
     <h1 class="mb-8 text-3xl font-bold">Foods</h1>
     <div class="flex items-center justify-between mb-6">
       <search-filter v-model="form.search" class="mr-4 w-full max-w-md" @reset="reset"> </search-filter>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { Head, Link } from '@inertiajs/vue3'
+import { Head, Link, router } from '@inertiajs/vue3'
 import Icon from '@/Shared/Icon.vue'
 import pickBy from 'lodash/pickBy'
 import Layout from '@/Shared/Layout.vue'
@@ -75,7 +75,7 @@ export default {
     form: {
       deep: true,
       handler: throttle(function () {
-        this.$inertia.get('/dashboard/food', pickBy(this.form), { preserveState: true })
+        router.get('/dashboard/food', pickBy(this.form), { preserveState: true })
       }, 150),
     },
   },
@@ -85,12 +85,9 @@ export default {
     },
     destroy(uuid) {
       if (confirm('Are you sure you want to delete this food?')) {
-        this.$inertia.delete(`/dashboard/food/${uuid}`)
+        router.delete(`/dashboard/food/${uuid}`)
       }
     },
-  },
-  created() {
-    console.log(this.foods.data)
   },
 }
 </script>

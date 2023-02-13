@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Head title="Dashboard" />
+    <Head title="Detail Food" />
     <div class="flex items-center mb-6 gap-x-5">
       <Link class="btn-indigo" href="/dashboard/food">
         <span>Back</span>

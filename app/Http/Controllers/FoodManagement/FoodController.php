@@ -23,7 +23,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $filters = Food::with('category')->filter(request()->only('search'))->paginate(2);
+        $filters = Food::with('category')->filter(request()->only('search'))->paginate(5);
         $foods = FoodResource::collection($filters)->withQueryString();
         return Inertia::render('Food/Index',[
             'filters' => request()->all('search'),
@@ -58,8 +58,7 @@ class FoodController extends Controller
             'category_id' => $request->category_id,
             'uuid' => Str::uuid(),
         ]);
-        Alert::success('Success', 'Food created successfully');
-        return redirect()->route('food.index');
+        return redirect()->route('food.index')->with('success', 'Food created successfully');
     }
 
     /**
@@ -103,8 +102,7 @@ class FoodController extends Controller
             'description' => $request->description,
             'category_id' => $request->category_id,
         ]);
-        Alert::success('Success', 'Food updated successfully');
-        return redirect()->route('food.index');
+        return redirect()->route('food.index')->with('success', 'Food updated successfully');
     }
 
     /**
@@ -116,7 +114,6 @@ class FoodController extends Controller
     public function destroy(Food $food)
     {
         $food->delete();
-        Alert::success('Success', 'Food deleted successfully');
-        return redirect()->route('food.index');
+        return redirect()->route('food.index')->with('success', 'Food deleted successfully');
     }
 }

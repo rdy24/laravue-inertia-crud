@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $filters = Category::filter(request()->only('search'))->paginate(2);
+        $filters = Category::filter(request()->only('search'))->paginate(5);
         $categories = CategoryResource::collection($filters)->withQueryString();
         return Inertia::render('Category/Index',[
             'filters' => request()->all('search'),
@@ -53,8 +53,7 @@ class CategoryController extends Controller
             'uuid' => Str::uuid(),
             'slug' => Str::slug($request->name),
         ]);
-        Alert::success('Success', 'Category created successfully');
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('success', 'Category created successfully');
     }
 
     /**
@@ -96,9 +95,7 @@ class CategoryController extends Controller
                 'slug' => Str::slug($request->name),
             ]);
         }
-
-        Alert::success('Success', 'Category updated successfully');
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }
 
     /**
@@ -110,8 +107,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        Alert::success('Success', 'Category deleted successfully');
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('success', 'Category deleted successfully');
     }
 
     public function listFood($slug)

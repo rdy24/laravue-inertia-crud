@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Head title="Dashboard" />
+    <Head title="List Food" />
     <div class="flex items-center mb-6 gap-x-5">
       <Link class="btn-indigo" href="/dashboard/category">
         <span>Back</span>
@@ -16,7 +16,7 @@
           <td class="border-t items-center px-6 py-4">{{ food.name }}</td>
         </tr>
         <tr v-if="foods.length === 0">
-          <td class="px-6 py-4 border-t text-center" colspan="2">No foods found.</td>
+          <td class="px-6 py-4 border-t text-center" colspan="1">No foods found.</td>
         </tr>
       </table>
     </div>
@@ -49,9 +49,6 @@ export default {
     reset() {
       this.form = mapValues(this.form, () => null)
     },
-  },
-  created() {
-    console.log(this.foods)
   },
 }
 </script>
