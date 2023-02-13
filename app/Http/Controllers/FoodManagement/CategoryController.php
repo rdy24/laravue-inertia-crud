@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\FoodManagement;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Category\StoreRequest;
+use App\Http\Requests\Category\UpdateRequest;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\FoodResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -16,9 +22,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return Inertia::render('Category/Index', [
-            'categories' => $categories,
+        $filters = Category::filter(request()->only('search'))->paginate(5);
+        $categories = CategoryResource::collection($filters)->withQueryString();
+        return Inertia::render('Category/Index',[
+            'filters' => request()->all('search'),
+            'categories' => $categories
         ]);
     }
 
@@ -29,7 +37,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Category/Create');
     }
 
     /**
@@ -38,9 +46,14 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        Category::create([
+            'name' => $request->name,
+            'uuid' => Str::uuid(),
+            'slug' => Str::slug($request->name),
+        ]);
+        return redirect()->route('category.index')->with('success', 'Category created successfully');
     }
 
     /**
@@ -62,7 +75,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return Inertia::render('Category/Edit',[
+            'category' => CategoryResource::make($category)
+        ]);
     }
 
     /**
@@ -72,9 +87,15 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateRequest $request, Category $category)
     {
-        //
+        if($request->name != $category->name){
+            $category->update([
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+            ]);
+        }
+        return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }
 
     /**
@@ -85,6 +106,17 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('category.index')->with('success', 'Category deleted successfully');
+    }
+
+    public function listFood($slug)
+    {
+        $category = Category::where('slug', $slug)->first();
+        $foods = $category->foods()->paginate(5);
+        return Inertia::render('Category/ListFood',[
+            'foods' => FoodResource::collection($foods),
+        ]);
+        
     }
 }

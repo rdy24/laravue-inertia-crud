@@ -1,62 +1,38 @@
 <template>
-  <Layout>
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
-          </div>
-          <!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
-          </div>
-          <!-- /.col -->
+  <div>
+    <Head title="Dashboard" />
+    <h1 class="mb-8 text-3xl font-bold">Dashboard</h1>
+    <div class="flex flex-col gap-y-6 md:flex-row md:gap-x-6">
+      <div class="w-full h-44 bg-orange-500 rounded md:w-64">
+        <div class="flex flex-col justify-center items-center h-full px-4 gap-2 text-white">
+          <i class="far fa-list-alt text-3xl"></i>
+          <h2 class="text-2xl font-bold">Total Category</h2>
+          <h3 class="text-3xl font-bold">{{ category }}</h3>
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
+      <div class="w-full h-44 bg-green-500 rounded md:w-64">
+        <div class="flex flex-col justify-center items-center h-full px-4 gap-2 text-white">
+          <i class="fas fa-bacon text-3xl"></i>
+          <h2 class="text-2xl font-bold">Total Food</h2>
+          <h3 class="text-3xl font-bold">{{ food }}</h3>
+        </div>
+      </div>
     </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>transaction</h3>
-
-                <p>Transaksi</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="/transaction" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-        </div>
-      </div>
-      <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </Layout>
+  </div>
 </template>
 
 <script>
-import Layout from '../../Shared/Layout.vue'
+import { Head } from '@inertiajs/vue3'
+import Layout from '@/Shared/Layout.vue'
 
 export default {
-  name: 'DashboardIndex',
+  layout: Layout,
   components: {
-    Layout,
+    Head,
+  },
+  props: {
+    category: String,
+    food: String,
   },
 }
 </script>
