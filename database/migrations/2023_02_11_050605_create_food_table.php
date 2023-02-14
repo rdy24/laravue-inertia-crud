@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('food', function (Blueprint $table) {
-            $table->id();
-            $table->uuid('uuid')->unique();
-            $table->foreignId('category_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->uuid('category_id');
             $table->string('name');
             $table->text('description');
             $table->timestamps();
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -47,7 +47,7 @@ export default {
   },
   layout: Layout,
   props: {
-    categories: Array,
+    categories: Object,
   },
   remember: 'form',
   data() {

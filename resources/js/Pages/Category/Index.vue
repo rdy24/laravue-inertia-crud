@@ -18,13 +18,13 @@
           <td class="border-t items-center px-6 py-4">{{ category.data.name }}</td>
           <td class="border-t">
             <div class="flex gap-3">
-              <Link :href="`/dashboard/category/${category.data.uuid}/edit`" class="bg-yellow-600 hover:bg-yellow-700 rounded px-3 py-2 text-white">
+              <Link :href="`/dashboard/category/${category.data.id}/edit`" class="bg-yellow-600 hover:bg-yellow-700 rounded px-3 py-2 text-white">
                 <i class="fas fa-pen"></i>
               </Link>
               <Link :href="`/dashboard/category/detail/${category.data.slug}`" class="bg-green-600 hover:bg-green-700 rounded px-3 py-2 text-white">
                 <i class="fas fa-eye"></i>
               </Link>
-              <button class="bg-red-600 rounded px-3 py-2 hover:bg-red-700 text-white" tabindex="-1" type="button" @click.prevent="destroy(`${category.data.uuid}`)">
+              <button class="bg-red-600 rounded px-3 py-2 hover:bg-red-700 text-white" tabindex="-1" type="button" @click.prevent="destroy(`${category.data.id}`)">
                 <i class="fas fa-trash"></i>
               </button>
             </div>
@@ -60,7 +60,7 @@ export default {
   layout: Layout,
   props: {
     filters: Object,
-    categories: Array,
+    categories: Object,
   },
   data() {
     return {
@@ -81,9 +81,9 @@ export default {
     reset() {
       this.form = mapValues(this.form, () => null)
     },
-    destroy(uuid) {
+    destroy(id) {
       if (confirm('Are you sure you want to delete this category?')) {
-        router.delete(`/dashboard/category/${uuid}`)
+        router.delete(`/dashboard/category/${id}`)
       }
     },
   },

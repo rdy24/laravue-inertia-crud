@@ -43,7 +43,7 @@ export default {
   layout: Layout,
   props: {
     filters: Object,
-    foods: Array,
+    foods: Object,
   },
   methods: {
     reset() {

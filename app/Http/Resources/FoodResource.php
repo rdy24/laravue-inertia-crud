@@ -19,7 +19,6 @@ class FoodResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'category' => CategoryResource::make($this->category),
-            'uuid' => $this->uuid,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     update() {
-      this.form.put(`/dashboard/category/${this.category.data.uuid}`)
+      this.form.put(`/dashboard/category/${this.category.data.id}`)
     },
   },
 }

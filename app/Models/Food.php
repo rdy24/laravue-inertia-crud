@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Food extends Model
 {
@@ -12,16 +13,32 @@ class Food extends Model
         'name',
         'description',
         'category_id',
-        'uuid'
     ];
 
-    public function category() {
-        return $this->belongsTo(Category::class);
+    protected static function boot() {
+        parent::boot();
+
+        static::creating(function ($food) {
+            $food->id = (string) Str::orderedUuid();
+        });
     }
 
-    public function getRouteKeyName()
+    public function category() {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+     public function getIncrementing()
     {
-        return 'uuid';
+        return false;
+    }
+    /**
+     * Get the auto-incrementing key type.
+     *
+     * @return string
+     */
+    public function getKeyType()
+    {
+        return 'string';
     }
 
     public function scopeFilter($query, array $filters)

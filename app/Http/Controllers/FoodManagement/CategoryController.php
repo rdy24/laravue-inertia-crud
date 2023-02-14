@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $filters = Category::filter(request()->only('search'))->paginate(5);
+        $filters = Category::orderBy('name', 'asc')->filter(request()->only('search'))->paginate(5);
         $categories = CategoryResource::collection($filters)->withQueryString();
         return Inertia::render('Category/Index',[
             'filters' => request()->all('search'),
@@ -48,11 +48,7 @@ class CategoryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        Category::create([
-            'name' => $request->name,
-            'uuid' => Str::uuid(),
-            'slug' => Str::slug($request->name),
-        ]);
+        Category::create($request->validated());
         return redirect()->route('category.index')->with('success', 'Category created successfully');
     }
 
@@ -90,10 +86,7 @@ class CategoryController extends Controller
     public function update(UpdateRequest $request, Category $category)
     {
         if($request->name != $category->name){
-            $category->update([
-                'name' => $request->name,
-                'slug' => Str::slug($request->name),
-            ]);
+            $category->update($request->validated());
         }
         return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }

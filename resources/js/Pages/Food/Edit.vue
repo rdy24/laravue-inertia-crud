@@ -47,7 +47,7 @@ export default {
   },
   layout: Layout,
   props: {
-    categories: Array,
+    categories: Object,
     food: Object,
   },
   remember: 'form',
@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     update() {
-      this.form.put(`/dashboard/food/${this.food.data.uuid}`)
+      this.form.put(`/dashboard/food/${this.food.data.id}`)
     },
   },
 }

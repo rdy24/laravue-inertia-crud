@@ -23,7 +23,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $filters = Food::with('category')->filter(request()->only('search'))->paginate(5);
+        $filters = Food::orderBy('name', 'asc')->with('category')->filter(request()->only('search'))->paginate(5);
         $foods = FoodResource::collection($filters)->withQueryString();
         return Inertia::render('Food/Index',[
             'filters' => request()->all('search'),
@@ -38,7 +38,7 @@ class FoodController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('name', 'asc')->get();
         return Inertia::render('Food/Create', [
             'categories' => CategoryResource::collection($categories)
         ]);
@@ -52,12 +52,7 @@ class FoodController extends Controller
      */
     public function store(FoodRequest $request)
     {
-        Food::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'category_id' => $request->category_id,
-            'uuid' => Str::uuid(),
-        ]);
+        Food::create($request->validated());
         return redirect()->route('food.index')->with('success', 'Food created successfully');
     }
 
@@ -97,11 +92,7 @@ class FoodController extends Controller
      */
     public function update(FoodRequest $request, Food $food)
     {
-        $food->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'category_id' => $request->category_id,
-        ]);
+        $food->update($request->validated());
         return redirect()->route('food.index')->with('success', 'Food updated successfully');
     }
 

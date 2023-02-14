@@ -23,12 +23,13 @@ class CategorySeeder extends Seeder
             'Main Course',
             'Appetizer',
         ];
-
-        foreach ($categories as $category) {
+        
+        for($i = 0; $i < count($categories); $i++) {
+            $uuid = 'e4eaaaf2-d142-11e1-b3e4-080027620cd';
             Category::create([
-                'name' => $category,
-                'slug' => strtolower(str_replace(' ', '-', $category)),
-                'uuid' => Str::uuid(),
+                'id' => $uuid . $i,
+                'name' => $categories[$i],
+                'slug' => Str::slug($categories[$i]),
             ]);
         }
     }
